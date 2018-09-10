@@ -10,22 +10,15 @@ sudo apt-get update
 sudo apt-get install git
 ```
 
-### Configurando o arquivo gitignore 
-Instale o nano (ou outro editor à sua disposição):
-```
-sudo apt-get update
-sudo apt-get install nano
-```
-
 ### Configurando o versionamento dos projetos
 Inicie o versionamento do projeto no local onde os projetos já existem:
 
 ```
 (Ubuntu Windows)
 cd ../../mnt/c/Users/"SEU USUÁRIO"/"CAMINHO DO PROJETO"
-```
+
 OU
-```
+
 (Linux)
 cd /"CAMINHO DO PROJETO"
 ```
@@ -34,6 +27,7 @@ Após isso, inicie o repositório git:
 ```
 git init
 ```
+
 Adicione o repositório do projeto:
 ```
 git remote add origin https://github.com/lgehlen/beagle.git
