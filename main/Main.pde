@@ -8,10 +8,10 @@ void setup()
     keyBool = false;
     blendMode(BLEND);
     noStroke();
-    o1 = criarObjeto(108, 140, 10, 60, 0);
+    o1 = criarObjeto(OBJETO_ANIMADO, 108, 140, 10, 60, 0);
     o1.adicionaAnimacao("DIREITA", "scott_DIR_", 8);
     o1.adicionaAnimacao("ESQUERDA", "scott_ESQ_", 8);
-    o2 = criarObjetoIlustrado(50, 50, 80, 80, 1);
+    o2 = criarObjeto(OBJETO_ILUSTRADO, 50, 50, 80, 80, 1);
     o2.defineImagem("mario.png");
     //o3 = criarObjeto("mario.png", 50, 50, 100, 50, 4);
     frameRate(10);
