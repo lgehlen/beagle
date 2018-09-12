@@ -1,6 +1,6 @@
 final int SQUARE = 4;
 
-class Collider
+class Colisor
 {
   
    private int numSides;
@@ -15,7 +15,7 @@ class Collider
 
    float[] x, y;
    
-   Collider(PVector coordenada, PVector tamanho)
+   Colisor(PVector coordenada, PVector tamanho)
    {
     numSides = SQUARE;
      
@@ -30,7 +30,7 @@ class Collider
       pontosColisao[i] = new PVector();
     }
 
-    setPoints(coordenada, tamanho);
+    definePontos(coordenada, tamanho);
    }
    
    public void imprime()
@@ -55,7 +55,7 @@ class Collider
     this.angle = angulo;
    }
    
-   void setMinMax(PVector axis) {
+   void defineMinMax(PVector axis) {
       minProj = vecs[0].dot(axis);
       maxProj = minProj;
       for (int i = 1; i < vecs.length; i++) {
@@ -77,18 +77,18 @@ class Collider
       }
     }
     
-    public boolean checkIfSeparated(Collider s1, Collider s2, boolean isSeparated) {
+    public boolean verificaSeSeparado(Colisor s1, Colisor s2, boolean isSeparated) {
         for (int i = 0; i < s1.numSides; i++) {
-          s1.setMinMax(s1.pontosColisao[i]);
-          s2.setMinMax(s1.pontosColisao[i]);
+          s1.defineMinMax(s1.pontosColisao[i]);
+          s2.defineMinMax(s1.pontosColisao[i]);
           isSeparated = s2.maxProj < s1.minProj || s1.maxProj < s2.minProj;
           if (isSeparated) {
             return true;
           }
         }
         for (int i = 0; i < s2.numSides; i++) {
-          s1.setMinMax(s2.pontosColisao[i]);
-          s2.setMinMax(s2.pontosColisao[i]);
+          s1.defineMinMax(s2.pontosColisao[i]);
+          s2.defineMinMax(s2.pontosColisao[i]);
           isSeparated = s2.maxProj < s1.minProj || s1.maxProj < s2.minProj;
           if (isSeparated) {
             return true;
@@ -97,7 +97,7 @@ class Collider
       return false;
       }
     
-    public void setPoints(PVector coordenada, PVector tamanho) {
+    public void definePontos(PVector coordenada, PVector tamanho) {
      
       for (int i = 0; i < x.length; i++) {
         float currentAngle = i * TWO_PI / numSides;

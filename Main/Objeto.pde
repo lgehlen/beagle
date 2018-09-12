@@ -1,44 +1,46 @@
-
 class Objeto
 {
     private int id;
 
-    private PImage imagem;
-
     private PVector tamanho;
 
     private PVector coordenada;
-
-    private ArrayList<Animacao> animacoes;
     
-    private Collider caixaDeColisao;
-    
-    private float angulo;
+    private float angulo;    
 
-    Objeto (int id, String imagemURL, int alturaObjeto, int larguraObjeto)
+    private Colisor caixaDeColisao;
+
+    private boolean desenvolvimento;
+
+    private boolean colisao;
+   
+    Objeto (int id, int alturaObjeto, int larguraObjeto)
     {
         defineId(id);
         iniciaPVectors();
-        defineImagem(imagemURL);
         defineTamanho(alturaObjeto, larguraObjeto);
-        animacoes = new ArrayList<Animacao>();
+        defineCoordenada(0, 0);
+        defineTemColisao(true);
+        defineCaixaDeColisao();
     }
 
-    Objeto (int id, String imagemURL, int alturaObjeto, int larguraObjeto, int coordenadaX, int coordenadaY)
+    Objeto (int id, int alturaObjeto, int larguraObjeto, int coordenadaX, int coordenadaY)
     {
-        this(id, imagemURL, alturaObjeto, larguraObjeto);
+        this(id, alturaObjeto, larguraObjeto);
         defineCoordenada(coordenadaX, coordenadaY);
+        this.caixaDeColisao.atualizaVecs();
         defineCaixaDeColisao();
     }
 
-    Objeto (int id, String imagemURL, int alturaObjeto, int larguraObjeto, int coordenadaX, int coordenadaY, int coordenadaZ)
+    Objeto (int id, int alturaObjeto, int larguraObjeto, int coordenadaX, int coordenadaY, int coordenadaZ)
     {
-        this(id, imagemURL, alturaObjeto, larguraObjeto);
+        this(id, alturaObjeto, larguraObjeto);
         defineCoordenada(coordenadaX, coordenadaY, coordenadaZ);
+        this.caixaDeColisao.atualizaVecs();
         defineCaixaDeColisao();
     }
 
-    protected void iniciaPVectors()
+    public void iniciaPVectors()
     {
         defineTamanho(new PVector());
         defineCoordenada(new PVector());
@@ -48,53 +50,28 @@ class Objeto
     {
         hint(ENABLE_DEPTH_SORT);
         pushMatrix();
-        //Ainda a fazer controle de uso do collider
-        this.caixaDeColisao.atualizaVecs();
-        this.caixaDeColisao.imprime();
-        translate(this.coordenada.x, this.coordenada.y, this.coordenada.z);
-        rotate(this.angulo);
-        imageMode(CENTER);
-        image(this.imagem, 0, 0, this.tamanho.y, this.tamanho.x);
+            defineImpressao();
         popMatrix();
     }
 
-    public void imprimeAnimacao(String idAnimacao)
+    public void defineImpressao()
     {
-        hint(ENABLE_DEPTH_SORT);
-        pushMatrix();
-        //Ainda a fazer controle de uso do collider
-        this.caixaDeColisao.atualizaVecs();
-        this.caixaDeColisao.imprime();
+        colisaoImpressao();            
         translate(this.coordenada.x, this.coordenada.y, this.coordenada.z);
         rotate(this.angulo);
-        imageMode(CENTER);
-        this.animacoes.get(buscaIndiceAnimacaoPorId(idAnimacao)).display(0, 0);
-        popMatrix();
     }
 
-    public void adicionaAnimacao(String idAnimacao, String prefixoImgem, int quantidadeSprites)
+    public void colisaoImpressao()
     {
-        animacoes.add(new Animacao(idAnimacao, prefixoImgem, quantidadeSprites));
-    }
-
-    public void adicionaAnimacao(String idAnimacao, String prefixoImgem, int quantidadeSprites, String extensao)
-    {
-        animacoes.add(new Animacao(idAnimacao, prefixoImgem, quantidadeSprites, extensao));
-    }
-
-    public int buscaIndiceAnimacaoPorId(String idAnimacao)
-    {
-        int contAnimacao = 0;
-
-        for (Animacao a : animacoes)
+        if(this.colisao)
         {
-            if (!a.getId().equals(idAnimacao))
-                contAnimacao++;
-            else
-                return contAnimacao;
-        }
+            this.caixaDeColisao.atualizaVecs();
 
-        return 0;
+            if(this.desenvolvimento)
+            {
+                this.caixaDeColisao.imprime();
+            }
+        }
     }
 
     // MOVIMENTO ======================================================================
@@ -104,79 +81,79 @@ class Objeto
     {
       this.angulo += .1;
       this.caixaDeColisao.defineAngulo(this.angulo);
-      this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+      this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void incrementaX()
     {
         this.coordenada.x += 1;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void incrementaX(int n)
     {
         this.coordenada.x += n;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void incrementaY()
     {
         this.coordenada.y += 1;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void incrementaY(int n)
     {
         this.coordenada.y += n;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void incrementaZ()
     {
         this.coordenada.z += 1;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void incrementaZ(int n)
     {
         this.coordenada.z += n;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void decrementaX()
     {
         this.coordenada.x -= 1;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void decrementaX(int n)
     {
         this.coordenada.x -= n;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void decrementaY()
     {
         this.coordenada.y -= 1;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void decrementaY(int n)
     {
         this.coordenada.y -= n;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void decrementaZ()
     {
         this.coordenada.z -= 1;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     void decrementaZ(int n)
     {
         this.coordenada.z -= n;
-        this.caixaDeColisao.setPoints(this.coordenada, this.tamanho);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }    
 
     // GETTER'S AND SETTER'S ==========================================================
@@ -190,16 +167,6 @@ class Objeto
     {
         this.id = id;
     }	
-
-    public PImage buscaImagem()
-    {
-        return this.imagem;
-    }
-
-    public void defineImagem(String imagemURL)
-    {
-        this.imagem = loadImage(imagemURL);
-    }
 
     public PVector buscaTamanho()
     {
@@ -292,7 +259,28 @@ class Objeto
     
     public void defineCaixaDeColisao()
     {
-      this.caixaDeColisao = new Collider(this.coordenada, this.tamanho);
-      this.angulo = this.caixaDeColisao.buscaAngulo();
+        this.caixaDeColisao = new Colisor(this.coordenada, this.tamanho);
+        this.angulo = this.caixaDeColisao.buscaAngulo();
     } 
+
+    public void defineEmDesenvolvimento(boolean desenvolvimento)
+    {
+        this.desenvolvimento = desenvolvimento;
+    }
+
+    public boolean emDesenvolvimento()
+    {
+        return this.desenvolvimento;
+    }
+
+    public void defineTemColisao(boolean colisao)
+    {
+        this.colisao = colisao;
+    }
+
+    public boolean temColisao()
+    {
+        return this.colisao;
+    }
+
 }
