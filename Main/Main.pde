@@ -1,4 +1,5 @@
-Objeto o1, o2, o3;
+ObjetoAnimado o1;
+ObjetoIlustrado o2;
 
 boolean keyBool;
 
@@ -7,12 +8,14 @@ void setup()
     keyBool = false;
     blendMode(BLEND);
     noStroke();
-    o1 = criarObjeto("scott_DIR_01.png", 108, 140, 10, 60, 0);
+    o1 = criarObjeto(108, 140, 10, 60, 0);
     o1.adicionaAnimacao("DIREITA", "scott_DIR_", 8);
     o1.adicionaAnimacao("ESQUERDA", "scott_ESQ_", 8);
-    o2 = criarObjeto("mario.png", 50, 50, 80, 80, 1);
-    o3 = criarObjeto("mario.png", 50, 50, 100, 50, 4);
+    o2 = criarObjetoIlustrado(50, 50, 80, 80, 1);
+    o2.defineImagem("mario.png");
+    //o3 = criarObjeto("mario.png", 50, 50, 100, 50, 4);
     frameRate(10);
+    defineEmDesenvolvimento(true);
 }
 void draw()
 {
@@ -20,7 +23,7 @@ void draw()
 
     if (!keyPressed)
     {
-        o1.imprimeAnimacao("DIREITA");
+        o1.imprime("DIREITA");
     } else
     {
         if (key == CODED)
@@ -36,12 +39,12 @@ void draw()
             if (keyCode == LEFT)
             {
                 o1.decrementaX(15);
-                o1.imprimeAnimacao("ESQUERDA");
+                o1.imprime("ESQUERDA");
             }
             if (keyCode == RIGHT)
             {
                 o1.incrementaX(15);
-                o1.imprimeAnimacao("DIREITA");
+                o1.imprime("DIREITA");
             }
             if (keyCode == SHIFT)
             {
@@ -54,10 +57,9 @@ void draw()
         }
     }
 
-    //o1.imprime();
+    o1.imprime();
     o2.imprime();
-    //o3.imprime();
-    /*teste de colisao*/
+
     if (estaColidindo(o1, o2))
     {
         text("Não colidiu! ", 30, 200);
@@ -65,7 +67,7 @@ void draw()
     {
         text("Colidiu! ", 30, 200);
     }
-    /*teste de colisao*/
+
 }
 
 
