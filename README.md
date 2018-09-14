@@ -10,6 +10,26 @@ sudo apt-get update
 sudo apt-get install git
 ```
 
+### Instalando o Processing 3.4
+Entre no seguinte link para realizar o download da versão desejada e instale em seu ambiente local:
+```
+https://www.processing.org/download/
+```
+Lembre-se de usar a versão voltada para o desenvolvimento sobre a linguagem de programação Java.
+
+### Configurando a biblioteca de som
+Navegue pelos menus superiores de sua IDE e entre na opção:
+```
+Sketch -> Importar Biblioteca -> Adicionar Biblioteca
+```
+Na aba "Libraries" realize uma busca pela seguinte biblioteca: 
+```
+Sound |  Provides a simple way to work with audio
+
+Autoria: The Processing Foundation
+```
+Adicione a biblioteca em seu ambiente de desenvolvimento. Após isso, seu ambiente já está preparado para o projeto Beagle. Finalize os passos de configuração do git e abra os arquivos .pde utilizando o ambiente recém configurado.
+
 ### Configurando o versionamento dos projetos
 Inicie o versionamento do projeto no local onde os projetos já existem:
 
