@@ -9,24 +9,26 @@ void setup()
     blendMode(BLEND);
     noStroke();
 
-    o1 = criarObjeto(OBJETO_ANIMADO, 108, 140, 10, 60, 0);
-    o1.adicionaAnimacao("DIREITA", "scott_DIR_", 8);
-    o1.adicionaAnimacao("ESQUERDA", "scott_ESQ_", 8);
+    o1 = criarObjeto(OBJETO_ANIMADO, 67, 75, 20, 60, 0);
+    o1.adicionaAnimacao("DIREITA", "platformCharWalk_DIR_", 2);
+    o1.adicionaAnimacao("ESQUERDA", "platformCharWalk_ESQ_", 2);
+    o1.adicionaAnimacao("IDLE", "platformChar_IDLE_", 1);
     
-    o2 = criarObjeto(OBJETO_ILUSTRADO, 50, 50, 80, 80, 1);
-    o2.defineImagem("mario.png");
+    o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 80, 1);
+    o2.defineImagem("platformChar_IDLE_00.png");
+    o2.buscaCorpoRigido().defineAtivo(true);
 
     frameRate(10);
     defineEmDesenvolvimento(true);
-    tocarAudioContinuo("shake.wav");
+    //tocarAudioContinuo("shake.wav");
 }
 void draw()
 {
-    background(166, 255, 0);
+    background(127, 199, 229);
 
     if (!keyPressed)
     {
-        o1.imprime("DIREITA");
+        o1.imprime("IDLE");
     } 
     else
     {
@@ -71,6 +73,11 @@ void draw()
     {
         text("Colidiu! ", 30, 200);
         tocarAudio("mario.wav");
+    }
+    
+    if(o2.verificaBordas())
+    {
+      o2.buscaCorpoRigido().buscaVelocidade().y *= -1; 
     }
 
 }
