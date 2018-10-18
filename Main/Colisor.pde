@@ -98,7 +98,6 @@ class Colisor
       }
     
     public void definePontos(PVector coordenada, PVector tamanho) {
-     
       for (int i = 0; i < x.length; i++) {
         float currentAngle = i * TWO_PI / numSides;
         x[i] = coordenada.x+tamanho.x/2*cos(currentAngle + PI/numSides + angle);
@@ -111,5 +110,23 @@ class Colisor
       
       pontosColisao[0] = new PVector(-y[0] + y[x.length-1], x[0] - x[x.length-1]);
     }
+    
+    boolean verificaBordas(PVector coordenada, PVector tamanho) {
+      if (coordenada.x > width - tamanho.x/2) {
+        coordenada.x = width - tamanho.x/2;
+        return true;
+      } else if(coordenada.x < tamanho.x/2){
+         coordenada.x = tamanho.x/2;
+         return true;
+      }
+      if (coordenada.y > height - tamanho.y/2) {
+        coordenada.y = height - tamanho.y/2;
+        return true;
+      } else if(coordenada.y < tamanho.y/2){
+        coordenada.y = tamanho.y/2;
+        return true;
+      }
+      return false;
+   }
  
 }

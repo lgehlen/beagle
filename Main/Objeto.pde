@@ -13,6 +13,8 @@ class Objeto
     private boolean desenvolvimento;
 
     private boolean colisao;
+    
+    private CorpoRigido corpoRigido;
    
     Objeto (int id, int alturaObjeto, int larguraObjeto)
     {
@@ -22,6 +24,7 @@ class Objeto
         defineCoordenada(0, 0);
         defineTemColisao(true);
         defineCaixaDeColisao();
+        defineCorpoRigido();
     }
 
     Objeto (int id, int alturaObjeto, int larguraObjeto, int coordenadaX, int coordenadaY)
@@ -56,9 +59,11 @@ class Objeto
 
     public void defineImpressao()
     {
-        colisaoImpressao();            
+        colisaoImpressao();
+        reacaoFisica();
         translate(this.coordenada.x, this.coordenada.y, this.coordenada.z);
         rotate(this.angulo);
+        this.caixaDeColisao.definePontos(this.coordenada, this.tamanho);
     }
 
     public void colisaoImpressao()
@@ -72,6 +77,15 @@ class Objeto
                 this.caixaDeColisao.imprime();
             }
         }
+    }
+    
+    public void reacaoFisica()
+    {
+      if(this.corpoRigido.ativo == true)
+      {
+        corpoRigido.aplicarGravidade();
+        coordenada.add(corpoRigido.atualizar());
+      }
     }
 
     // MOVIMENTO ======================================================================
@@ -167,6 +181,16 @@ class Objeto
     {
         this.id = id;
     }	
+    
+    public CorpoRigido buscaCorpoRigido()
+    {
+        return this.corpoRigido;
+    }
+
+    public void defineCorpoRigido(CorpoRigido corpoRigido)
+    {
+        this.corpoRigido = corpoRigido;
+    }  
 
     public PVector buscaTamanho()
     {
@@ -282,5 +306,14 @@ class Objeto
     {
         return this.colisao;
     }
-
+    
+    public void defineCorpoRigido()
+    {
+      this.corpoRigido = new CorpoRigido();
+    }
+    
+    public boolean verificaBordas()
+    {
+      return this.caixaDeColisao.verificaBordas(this.coordenada,this.tamanho);
+    }
 }
