@@ -30,11 +30,11 @@ class CorpoRigido
     {
         //Mock
         velocidadeMaxima = 100;
-        massa = 0.1;
-        gravidade = new PVector (0, 0.1);
+        massa = 10;
+        gravidade = new PVector (0, 10);
         velocidade = new PVector(0, 0);
         forca = new PVector(0, 0);
-        atrito = 0.5;
+        atrito = 0.2;
         velocidade.limit(velocidadeMaxima);
         aceleracao = forca;
     }
@@ -42,10 +42,10 @@ class CorpoRigido
     public PVector atualizar()
     {
       if(atrito != 0 && colisao)
-      velocidade.mult(atrito);
-      velocidade.add(aceleracao);
-      velocidade.limit(velocidadeMaxima);
-      aceleracao.mult(0);
+        this.velocidade.mult(this.atrito);
+      this.velocidade.add(this.aceleracao);
+      this.velocidade.limit(this.velocidadeMaxima);
+      this.aceleracao.mult(0);
       return velocidade;
     }
     
@@ -63,6 +63,8 @@ class CorpoRigido
     
     public void aplicarGravidade()
     {
+      if(colisao)
+          this.velocidade.y *= -1;
       if(gravidadeAtiva)
         this.aplicarForca(gravidade);
     }
@@ -83,6 +85,21 @@ class CorpoRigido
           this.forcaAtiva = false;
       }
       this.aplicarForca(balistica);
+    }
+    
+    public void resolveColisao( Objeto A, Objeto B )
+    {
+      float relacao;
+      PVector impulso;
+      float somaMassas = A.buscaCorpoRigido().buscaMassa() + B.buscaCorpoRigido().buscaMassa();
+      
+      relacao = A.buscaCorpoRigido().buscaMassa() / somaMassas;
+      impulso = A.buscaCorpoRigido().buscaVelocidade().mult(relacao);
+      A.buscaCorpoRigido().defineVelocidade(A.buscaCorpoRigido().buscaVelocidade().sub(impulso));
+      
+      relacao = B.buscaCorpoRigido().buscaMassa() / somaMassas;
+      impulso = B.buscaCorpoRigido().buscaVelocidade().mult(relacao);
+      B.buscaCorpoRigido().defineVelocidade(B.buscaCorpoRigido().buscaVelocidade().add(impulso));
     }
     
     // GETTER'S AND SETTER'S ==========================================================
