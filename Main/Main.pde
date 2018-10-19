@@ -63,7 +63,7 @@ void draw()
             }
             if(keyCode == ALT)
             {
-              o2.buscaCorpoRigido().iniciarProjetil(45,0.9);
+              o2.buscaCorpoRigido().iniciarProjetil(90,0.9);
             }
         }
     }

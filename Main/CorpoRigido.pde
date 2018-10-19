@@ -52,7 +52,7 @@ class CorpoRigido
     public void iniciarProjetil(float angulo, float forca)
     {
       this.forcaAtiva = true;
-      this.angulo = angulo;
+      this.angulo = radians(angulo);
       this.forcaProjetil = forca;
     }
     
@@ -70,11 +70,12 @@ class CorpoRigido
     public void aplicarProjetil()
     {
       PVector balistica = new PVector(0, 0);
+      float mx = 0, my = 0;
       if(this.forcaAtiva)
       {
         this.forcaProjetil = this.forcaProjetil/1.3;
-        float mx = this.forcaProjetil*cos(this.angulo);
-        float my = -this.forcaProjetil*sin(this.angulo);
+        mx = this.forcaProjetil*cos(this.angulo);
+        my = -this.forcaProjetil*sin(this.angulo);
         balistica = new PVector(mx, my);
         if (balistica.mag()>=this.velocidadeMaxima)
           balistica.setMag(this.velocidadeMaxima);
