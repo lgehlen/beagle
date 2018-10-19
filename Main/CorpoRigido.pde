@@ -8,7 +8,7 @@ class CorpoRigido
         
     private PVector forca;
     
-    private float friccao;
+    private float atrito;
     
     private float velocidadeMaxima;
     
@@ -34,15 +34,15 @@ class CorpoRigido
         gravidade = new PVector (0, 0.1);
         velocidade = new PVector(0, 0);
         forca = new PVector(0, 0);
-        friccao = 0.5;
+        atrito = 0.5;
         velocidade.limit(velocidadeMaxima);
         aceleracao = forca;
     }
     
     public PVector atualizar()
     {
-      if(friccao != 0 && colisao)
-      velocidade.mult(friccao);
+      if(atrito != 0 && colisao)
+      velocidade.mult(atrito);
       velocidade.add(aceleracao);
       velocidade.limit(velocidadeMaxima);
       aceleracao.mult(0);
@@ -144,6 +144,16 @@ class CorpoRigido
     public void defineMassa(float massa)
     {
         this.massa = massa;
+    }
+    
+    public float buscaAtrito()
+    {
+        return this.atrito;
+    }
+
+    public void defineAtrito(float atrito)
+    {
+        this.atrito = atrito;
     }
     
     public boolean buscaAtivo()
