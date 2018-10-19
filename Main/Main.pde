@@ -14,9 +14,10 @@ void setup()
     o1.adicionaAnimacao("ESQUERDA", "platformCharWalk_ESQ_", 2);
     o1.adicionaAnimacao("IDLE", "platformChar_IDLE_", 1);
     
-    o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 80, 1);
+    o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 600, 1);
     o2.defineImagem("platformChar_IDLE_00.png");
     o2.buscaCorpoRigido().defineAtivo(true);
+    o2.buscaCorpoRigido().defineGravidadeAtiva(true);
 
     frameRate(10);
     defineEmDesenvolvimento(true);
@@ -60,6 +61,10 @@ void draw()
             {
                 o1.gira();
             }
+            if(keyCode == ALT)
+            {
+              o2.buscaCorpoRigido().iniciarProjetil(45,0.9);
+            }
         }
     }
 
@@ -77,7 +82,13 @@ void draw()
     
     if(o2.verificaBordas())
     {
+      //TO-DO: BOUNCE
       o2.buscaCorpoRigido().buscaVelocidade().y *= -1; 
+      o2.buscaCorpoRigido().defineColisao(true);
+    }
+    else
+    {
+      o2.buscaCorpoRigido().defineColisao(false);
     }
 
 }

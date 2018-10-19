@@ -1,18 +1,30 @@
 class CorpoRigido
 {
-    PVector gravidade;
+    private PVector gravidade;
     
-    PVector velocidade;
+    private PVector velocidade;
     
-    PVector aceleracao;
+    private PVector aceleracao;
+        
+    private PVector forca;
     
-    PVector forca;
+    private float friccao;
     
-    float velocidadeMaxima;
+    private float velocidadeMaxima;
     
-    float massa;
+    private float massa;
     
-    boolean ativo;
+    private float angulo;
+    
+    private float forcaProjetil;
+    
+    private boolean ativo;
+    
+    private boolean forcaAtiva;
+    
+    private boolean gravidadeAtiva;
+    
+    private boolean colisao;
     
     CorpoRigido()
     {
@@ -21,27 +33,55 @@ class CorpoRigido
         massa = 0.1;
         gravidade = new PVector (0, 0.1);
         velocidade = new PVector(0, 0);
-        forca = new PVector(0, 0.4);
+        forca = new PVector(0, 0);
+        friccao = 0.5;
         velocidade.limit(velocidadeMaxima);
         aceleracao = forca;
     }
     
     public PVector atualizar()
     {
+      if(friccao != 0 && colisao)
+      velocidade.mult(friccao);
       velocidade.add(aceleracao);
       velocidade.limit(velocidadeMaxima);
       aceleracao.mult(0);
       return velocidade;
     }
     
-    public void aplicarGravidade()
+    public void iniciarProjetil(float angulo, float forca)
     {
-      this.aplicarForca(gravidade);
+      this.forcaAtiva = true;
+      this.angulo = angulo;
+      this.forcaProjetil = forca;
     }
     
     public void aplicarForca(PVector force){
      PVector f = PVector.div(force, massa);
      aceleracao.add(f);
+    }
+    
+    public void aplicarGravidade()
+    {
+      if(gravidadeAtiva)
+        this.aplicarForca(gravidade);
+    }
+     
+    public void aplicarProjetil()
+    {
+      PVector balistica = new PVector(0, 0);
+      if(this.forcaAtiva)
+      {
+        this.forcaProjetil = this.forcaProjetil/1.3;
+        float mx = this.forcaProjetil*cos(this.angulo);
+        float my = -this.forcaProjetil*sin(this.angulo);
+        balistica = new PVector(mx, my);
+        if (balistica.mag()>=this.velocidadeMaxima)
+          balistica.setMag(this.velocidadeMaxima);
+        if(round(forcaProjetil) <= 0)
+          this.forcaAtiva = false;
+      }
+      this.aplicarForca(balistica);
     }
     
     // GETTER'S AND SETTER'S ==========================================================
@@ -115,4 +155,35 @@ class CorpoRigido
     {
         this.ativo = ativo;
     }
+    
+    public boolean buscaForcaAtiva()
+    {
+        return this.forcaAtiva;
+    }
+
+    public void defineForcaAtiva(boolean forcaAtiva)
+    {
+        this.forcaAtiva = forcaAtiva;
+    }
+    
+    public boolean buscaGravidadeAtiva()
+    {
+        return this.forcaAtiva;
+    }
+
+    public void defineGravidadeAtiva(boolean gravidadeAtiva)
+    {
+        this.gravidadeAtiva = gravidadeAtiva;
+    }
+    
+    public boolean buscaColisao()
+    {
+        return this.colisao;
+    }
+
+    public void defineColisao(boolean colisao)
+    {
+        this.colisao = colisao;
+    }
+    
 }

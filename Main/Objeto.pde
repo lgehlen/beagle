@@ -81,9 +81,13 @@ class Objeto
     
     public void reacaoFisica()
     {
-      if(this.corpoRigido.ativo == true)
+      if(this.corpoRigido.buscaAtivo())
       {
         corpoRigido.aplicarGravidade();
+        
+        if(corpoRigido.buscaForcaAtiva())
+          corpoRigido.aplicarProjetil();
+        
         coordenada.add(corpoRigido.atualizar());
       }
     }
