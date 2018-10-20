@@ -25,7 +25,7 @@ class CorpoRigido
     private boolean gravidadeAtiva;
     
     private boolean colisao;
-    
+        
     CorpoRigido()
     {
         //Mock
@@ -64,8 +64,11 @@ class CorpoRigido
     public void aplicarGravidade()
     {
       if(colisao)
-          this.velocidade.y *= -1;
-      if(gravidadeAtiva && !colisao)
+      {
+        this.velocidade.x *= -1;
+        this.velocidade.y *= -1;
+      }
+      else if(gravidadeAtiva)
         this.aplicarForca(gravidade);
     }
      
@@ -89,10 +92,13 @@ class CorpoRigido
     
     public void resolveColisao( Objeto A, Objeto B )
     {
-      A.buscaCorpoRigido().buscaVelocidade().x = -sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
-      A.buscaCorpoRigido().buscaVelocidade().y = -cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
-      B.buscaCorpoRigido().buscaVelocidade().x = sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
-      B.buscaCorpoRigido().buscaVelocidade().y = cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
+      if(B.buscaCorpoRigido().buscaVelocidade().x <= 0 && B.buscaCorpoRigido().buscaVelocidade().y <= 0)
+        return;
+      
+      A.buscaCorpoRigido().buscaVelocidade().x = sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
+      A.buscaCorpoRigido().buscaVelocidade().y = cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
+      B.buscaCorpoRigido().buscaVelocidade().x = -sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
+      B.buscaCorpoRigido().buscaVelocidade().y = -cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
     }
     
     // GETTER'S AND SETTER'S ==========================================================

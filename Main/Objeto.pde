@@ -316,8 +316,8 @@ class Objeto
       this.corpoRigido = new CorpoRigido();
     }
     
-    public boolean verificaBordas()
+    public boolean verificaChao()
     {
-      return this.caixaDeColisao.verificaBordas(this.coordenada,this.tamanho);
+      return this.caixaDeColisao.verificaChao(this.coordenada,this.tamanho);
     }
 }

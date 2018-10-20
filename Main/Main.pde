@@ -15,15 +15,15 @@ void setup()
   o1.adicionaAnimacao("ESQUERDA", "platformCharWalk_ESQ_", 2);
   o1.adicionaAnimacao("IDLE", "platformChar_IDLE_", 1);
 
-  o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 120, 400, 1);
+  o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 400, 1);
   o2.defineImagem("platformChar_IDLE_00.png");
   o2.buscaCorpoRigido().defineAtivo(true);
   o2.buscaCorpoRigido().defineGravidadeAtiva(true);
 
-  o3 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 600, 1);
+  o3 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 500, 1);
   o3.defineImagem("platformChar_IDLE_00.png");
-  o3.buscaCorpoRigido().defineAtivo(true);
-  o3.buscaCorpoRigido().defineGravidadeAtiva(true);
+  o3.buscaCorpoRigido().defineAtivo(false);
+  o3.buscaCorpoRigido().defineGravidadeAtiva(false);
 
   frameRate(10);
   defineEmDesenvolvimento(true);
@@ -68,7 +68,8 @@ void draw()
       }
       if (keyCode == ALT)
       {
-        o3.buscaCorpoRigido().iniciarProjetil(45, 50);
+        o2.buscaCorpoRigido().iniciarProjetil(45, 50);
+        o2.buscaCorpoRigido().defineColisao(false);
       }
     }
   }
@@ -87,31 +88,18 @@ void draw()
   
   //Melhorar proximas linhas para facilidade do usuario
   
+  if (o2.verificaChao())
+  {
+    o2.buscaCorpoRigido().defineColisao(true);
+  }
+  
   if (estaColidindo(o2, o3))
   {
-    o2.buscaCorpoRigido().buscaVelocidade().y *= -1;
+    o2.decrementaY((int)(o2.buscaCorpoRigido().buscaVelocidade().y*2));
     o2.buscaCorpoRigido().defineColisao(true);
-    o3.buscaCorpoRigido().defineColisao(true);
     o2.buscaCorpoRigido().resolveColisao(o2, o3);
   }
-  
-  if (o2.verificaBordas())
-  {
-    o2.buscaCorpoRigido().defineColisao(true);
-  }
-  else if(!o2.verificaBordas() && !estaColidindo(o2, o3))
-  {
-      o2.buscaCorpoRigido().defineColisao(false);
-  }
-  
-  if (o3.verificaBordas())
-  {
-    o3.buscaCorpoRigido().defineColisao(true);
-    } 
-  else if(!o3.verificaBordas() && !estaColidindo(o2, o3))
-  {
-    o3.buscaCorpoRigido().defineColisao(false);
-  }
+
 }
 
 

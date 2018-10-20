@@ -107,18 +107,9 @@ class Colisor
       for (int i = 0; i < x.length-1; i++) {
         pontosColisao[i+1] = new PVector(-y[i+1] + y[i], x[i+1] - x[i]);
       }
-      
-      pontosColisao[0] = new PVector(-y[0] + y[x.length-1], x[0] - x[x.length-1]);
     }
     
-    boolean verificaBordas(PVector coordenada, PVector tamanho) {
-      if (coordenada.x > width - tamanho.x/2) {
-        coordenada.x = width - tamanho.x/2;
-        return true;
-      } else if(coordenada.x < tamanho.x/2){
-         coordenada.x = tamanho.x/2;
-         return true;
-      }
+    boolean verificaChao(PVector coordenada, PVector tamanho) {
       if (coordenada.y > height - tamanho.y/2) {
         coordenada.y = height - tamanho.y/2;
         return true;
@@ -128,5 +119,15 @@ class Colisor
       }
       return false;
    }
- 
+   
+   boolean verificaParede(PVector coordenada, PVector tamanho) {
+       if (coordenada.x > width - tamanho.x/2) {
+        coordenada.x = width - tamanho.x/2;
+        return true;
+      } else if(coordenada.x < tamanho.x/2){
+         coordenada.x = tamanho.x/2;
+         return true;
+      }
+      return false;
+   }
 }
