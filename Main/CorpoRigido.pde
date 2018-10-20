@@ -1,47 +1,104 @@
 class CorpoRigido
 {
-    PVector gravidade;
+    private PVector gravidade;
     
-    PVector velocidade;
+    private PVector velocidade;
     
-    PVector aceleracao;
+    private PVector aceleracao;
+        
+    private PVector forca;
     
-    PVector forca;
+    private float atrito;
     
-    float velocidadeMaxima;
+    private float velocidadeMaxima;
     
-    float massa;
+    private float massa;
     
-    boolean ativo;
+    private float angulo;
     
+    private float forcaProjetil;
+    
+    private boolean ativo;
+    
+    private boolean forcaAtiva;
+    
+    private boolean gravidadeAtiva;
+    
+    private boolean colisao;
+        
     CorpoRigido()
     {
         //Mock
         velocidadeMaxima = 100;
-        massa = 0.1;
-        gravidade = new PVector (0, 0.1);
+        massa = 10;
+        gravidade = new PVector (0, 10);
         velocidade = new PVector(0, 0);
-        forca = new PVector(0, 0.4);
+        forca = new PVector(0, 0);
+        atrito = 0.2;
         velocidade.limit(velocidadeMaxima);
         aceleracao = forca;
     }
     
     public PVector atualizar()
     {
-      velocidade.add(aceleracao);
-      velocidade.limit(velocidadeMaxima);
-      aceleracao.mult(0);
+      if(atrito != 0 && colisao)
+        this.velocidade.mult(this.atrito);
+      this.velocidade.add(this.aceleracao);
+      this.velocidade.limit(this.velocidadeMaxima);
+      this.aceleracao.mult(0);
       return velocidade;
     }
     
-    public void aplicarGravidade()
+    public void iniciarProjetil(float angulo, float forca)
     {
-      this.aplicarForca(gravidade);
+      this.forcaAtiva = true;
+      this.angulo = radians(angulo);
+      this.forcaProjetil = forca;
     }
     
     public void aplicarForca(PVector force){
      PVector f = PVector.div(force, massa);
      aceleracao.add(f);
+    }
+    
+    public void aplicarGravidade()
+    {
+      if(colisao)
+      {
+        this.velocidade.x *= -1;
+        this.velocidade.y *= -1;
+      }
+      else if(gravidadeAtiva)
+        this.aplicarForca(gravidade);
+    }
+     
+    public void aplicarProjetil()
+    {
+      PVector balistica = new PVector(0, 0);
+      float mx = 0, my = 0;
+      if(this.forcaAtiva)
+      {
+        this.forcaProjetil = this.forcaProjetil/1.3;
+        mx = this.forcaProjetil*cos(this.angulo);
+        my = -this.forcaProjetil*sin(this.angulo);
+        balistica = new PVector(mx, my);
+        if (balistica.mag()>=this.velocidadeMaxima)
+          balistica.setMag(this.velocidadeMaxima);
+        if(round(forcaProjetil) <= 0)
+          this.forcaAtiva = false;
+      }
+      this.aplicarForca(balistica);
+    }
+    
+    public void resolveColisao( Objeto A, Objeto B )
+    {
+      if(B.buscaCorpoRigido().buscaVelocidade().x <= 0 && B.buscaCorpoRigido().buscaVelocidade().y <= 0)
+        return;
+      
+      A.buscaCorpoRigido().buscaVelocidade().x = sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
+      A.buscaCorpoRigido().buscaVelocidade().y = cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
+      B.buscaCorpoRigido().buscaVelocidade().x = -sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
+      B.buscaCorpoRigido().buscaVelocidade().y = -cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y))*PI;
     }
     
     // GETTER'S AND SETTER'S ==========================================================
@@ -106,6 +163,16 @@ class CorpoRigido
         this.massa = massa;
     }
     
+    public float buscaAtrito()
+    {
+        return this.atrito;
+    }
+
+    public void defineAtrito(float atrito)
+    {
+        this.atrito = atrito;
+    }
+    
     public boolean buscaAtivo()
     {
         return this.ativo;
@@ -115,4 +182,35 @@ class CorpoRigido
     {
         this.ativo = ativo;
     }
+    
+    public boolean buscaForcaAtiva()
+    {
+        return this.forcaAtiva;
+    }
+
+    public void defineForcaAtiva(boolean forcaAtiva)
+    {
+        this.forcaAtiva = forcaAtiva;
+    }
+    
+    public boolean buscaGravidadeAtiva()
+    {
+        return this.forcaAtiva;
+    }
+
+    public void defineGravidadeAtiva(boolean gravidadeAtiva)
+    {
+        this.gravidadeAtiva = gravidadeAtiva;
+    }
+    
+    public boolean buscaColisao()
+    {
+        return this.colisao;
+    }
+
+    public void defineColisao(boolean colisao)
+    {
+        this.colisao = colisao;
+    }
+    
 }

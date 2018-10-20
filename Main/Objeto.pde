@@ -81,9 +81,13 @@ class Objeto
     
     public void reacaoFisica()
     {
-      if(this.corpoRigido.ativo == true)
+      if(this.corpoRigido.buscaAtivo())
       {
         corpoRigido.aplicarGravidade();
+        
+        if(corpoRigido.buscaForcaAtiva())
+          corpoRigido.aplicarProjetil();
+        
         coordenada.add(corpoRigido.atualizar());
       }
     }
@@ -312,8 +316,8 @@ class Objeto
       this.corpoRigido = new CorpoRigido();
     }
     
-    public boolean verificaBordas()
+    public boolean verificaChao()
     {
-      return this.caixaDeColisao.verificaBordas(this.coordenada,this.tamanho);
+      return this.caixaDeColisao.verificaChao(this.coordenada,this.tamanho);
     }
 }

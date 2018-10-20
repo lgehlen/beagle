@@ -171,7 +171,7 @@ public void defineEmDesenvolvimento(boolean emDesenvolvimento)
 
 public boolean estaColidindo(Objeto objeto1, Objeto objeto2)
 {
-    return objeto1.caixaDeColisao.verificaSeSeparado(objeto1.caixaDeColisao,objeto2.caixaDeColisao,colisao);
+    return !objeto1.caixaDeColisao.verificaSeSeparado(objeto1.caixaDeColisao,objeto2.caixaDeColisao,colisao);
 }
 
 public ArrayList<Objeto> getObjetos()
