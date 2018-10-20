@@ -65,7 +65,7 @@ class CorpoRigido
     {
       if(colisao)
           this.velocidade.y *= -1;
-      if(gravidadeAtiva)
+      if(gravidadeAtiva && !colisao)
         this.aplicarForca(gravidade);
     }
      
@@ -89,17 +89,10 @@ class CorpoRigido
     
     public void resolveColisao( Objeto A, Objeto B )
     {
-      float relacao;
-      PVector impulso;
-      float somaMassas = A.buscaCorpoRigido().buscaMassa() + B.buscaCorpoRigido().buscaMassa();
-      
-      relacao = A.buscaCorpoRigido().buscaMassa() / somaMassas;
-      impulso = A.buscaCorpoRigido().buscaVelocidade().mult(relacao);
-      A.buscaCorpoRigido().defineVelocidade(A.buscaCorpoRigido().buscaVelocidade().sub(impulso));
-      
-      relacao = B.buscaCorpoRigido().buscaMassa() / somaMassas;
-      impulso = B.buscaCorpoRigido().buscaVelocidade().mult(relacao);
-      B.buscaCorpoRigido().defineVelocidade(B.buscaCorpoRigido().buscaVelocidade().add(impulso));
+      A.buscaCorpoRigido().buscaVelocidade().x = -sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
+      A.buscaCorpoRigido().buscaVelocidade().y = -cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
+      B.buscaCorpoRigido().buscaVelocidade().x = sin(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
+      B.buscaCorpoRigido().buscaVelocidade().y = cos(atan2(A.buscaCorpoRigido().buscaVelocidade().x-B.buscaCorpoRigido().buscaVelocidade().x,A.buscaCorpoRigido().buscaVelocidade().y-B.buscaCorpoRigido().buscaVelocidade().y));
     }
     
     // GETTER'S AND SETTER'S ==========================================================

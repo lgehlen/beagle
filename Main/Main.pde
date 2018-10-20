@@ -15,7 +15,7 @@ void setup()
   o1.adicionaAnimacao("ESQUERDA", "platformCharWalk_ESQ_", 2);
   o1.adicionaAnimacao("IDLE", "platformChar_IDLE_", 1);
 
-  o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 200, 400, 1);
+  o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 120, 400, 1);
   o2.defineImagem("platformChar_IDLE_00.png");
   o2.buscaCorpoRigido().defineAtivo(true);
   o2.buscaCorpoRigido().defineGravidadeAtiva(true);
@@ -85,18 +85,21 @@ void draw()
     text("Não colidiu! ", 30, 200);
   }  
   
-  /*if (estaColidindo(o2, o3))
+  //Melhorar proximas linhas para facilidade do usuario
+  
+  if (estaColidindo(o2, o3))
   {
+    o2.buscaCorpoRigido().buscaVelocidade().y *= -1;
     o2.buscaCorpoRigido().defineColisao(true);
     o3.buscaCorpoRigido().defineColisao(true);
     o2.buscaCorpoRigido().resolveColisao(o2, o3);
-  }*/
+  }
   
   if (o2.verificaBordas())
   {
     o2.buscaCorpoRigido().defineColisao(true);
   }
-  else
+  else if(!o2.verificaBordas() && !estaColidindo(o2, o3))
   {
       o2.buscaCorpoRigido().defineColisao(false);
   }
@@ -104,8 +107,8 @@ void draw()
   if (o3.verificaBordas())
   {
     o3.buscaCorpoRigido().defineColisao(true);
-  } 
-  else
+    } 
+  else if(!o3.verificaBordas() && !estaColidindo(o2, o3))
   {
     o3.buscaCorpoRigido().defineColisao(false);
   }
