@@ -114,7 +114,6 @@ class Objeto
 
     // MOVIMENTO ======================================================================
     
-    // Função temporaria para teste de colisao - ainda por fazer getters e setters do angulo
     void gira()
     {
       this.angulo += .1;
