@@ -15,6 +15,12 @@ class Objeto
     private boolean colisao;
     
     private CorpoRigido corpoRigido;
+    
+    private Mouse mouse;
+    
+    private PVector posicionamento;
+    
+    private float tempo;
    
     Objeto (int id, int alturaObjeto, int larguraObjeto)
     {
@@ -25,6 +31,7 @@ class Objeto
         defineTemColisao(true);
         defineCaixaDeColisao();
         defineCorpoRigido();
+        defineMouse();
     }
 
     Objeto (int id, int alturaObjeto, int larguraObjeto, int coordenadaX, int coordenadaY)
@@ -51,6 +58,8 @@ class Objeto
 
     public void imprime()
     {
+        this.tempo -= 1;
+        println(tempo);
         hint(ENABLE_DEPTH_SORT);
         pushMatrix();
             defineImpressao();
@@ -90,6 +99,17 @@ class Objeto
         
         coordenada.add(corpoRigido.atualizar());
       }
+    }
+    
+    public void segueMouse(float velocidade)
+    {
+      defineCoordenada(this.buscaMouse().seguirMouse(this.buscaCoordenada(), velocidade));
+    }
+
+    public void rotacionarParaMouse()
+    {
+      this.angulo = this.buscaMouse().rotacionarParaMouse(this.buscaCoordenada(), this.angulo);
+      this.caixaDeColisao.defineAngulo(this.angulo);
     }
 
     // MOVIMENTO ======================================================================
@@ -175,6 +195,16 @@ class Objeto
     }    
 
     // GETTER'S AND SETTER'S ==========================================================
+    
+    public Mouse buscaMouse()
+    {
+        return this.mouse;
+    }
+
+    public void defineMouse(Mouse mouse)
+    {
+        this.mouse = mouse;
+    }  
 
     public int buscaId()
     {
@@ -241,6 +271,16 @@ class Objeto
     {
         this.coordenada = coordenada;
     }
+    
+    public PVector buscaPosicionamento()
+    {
+        return this.posicionamento;
+    }
+
+    public void definePosicionamento(PVector posicionamento)
+    {
+        this.posicionamento = posicionamento;
+    }
 
     public void defineCoordenada(int x, int y)
     {
@@ -285,6 +325,17 @@ class Objeto
         this.coordenada.z = z;
     }
     
+    public float buscaTempo()
+    {
+        return int(this.tempo);
+    }
+
+    public void defineTempo(float tempo)
+    {
+        this.tempo = tempo;
+    }
+   
+    
     public void defineCaixaDeColisao()
     {
         this.caixaDeColisao = new Colisor(this.coordenada, this.tamanho);
@@ -314,6 +365,11 @@ class Objeto
     public void defineCorpoRigido()
     {
       this.corpoRigido = new CorpoRigido();
+    }
+    
+    public void defineMouse()
+    {
+      this.mouse = new Mouse();
     }
     
     public boolean verificaChao()

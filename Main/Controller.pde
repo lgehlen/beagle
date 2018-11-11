@@ -8,14 +8,13 @@ public ArrayList<Audio> audios = new ArrayList<Audio>();
 public static int id = 0;
 public static int idAudio = 0;
 
-public String arquivoDeAudio;
+private String arquivoDeAudio;
 
-public boolean colisao;
+private boolean colisao;
 
 void settings()
 {
-    size(800, 600, P3D);
-
+    size(1020, 800, P3D);
     noSmooth();
 }
 

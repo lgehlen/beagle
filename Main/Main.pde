@@ -1,83 +1,40 @@
-ObjetoAnimado o1;
-ObjetoIlustrado o2;
-ObjetoIlustrado o3;
 
-boolean keyBool;
+ObjetoAnimado ship;
+ArrayList<ObjetoIlustrado> shootList;
+int vidas;
+int pontos;
 
 void setup() 
 {
-  keyBool = false;
-  blendMode(BLEND);
-  noStroke();
-
-  o1 = criarObjeto(OBJETO_ANIMADO, 67, 75, 20, 60, 0);
-  o1.adicionaAnimacao("DIREITA", "platformCharWalk_DIR_", 2);
-  o1.adicionaAnimacao("ESQUERDA", "platformCharWalk_ESQ_", 2);
-  o1.adicionaAnimacao("IDLE", "platformChar_IDLE_", 1);
-
-  o2 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 400, 1);
-  o2.defineImagem("platformChar_IDLE_00.png");
-  o2.buscaCorpoRigido().defineAtivo(true);
-  o2.buscaCorpoRigido().defineGravidadeAtiva(true);
-
-  o3 = criarObjeto(OBJETO_ILUSTRADO, 67, 67, 80, 500, 1);
-  o3.defineImagem("platformChar_IDLE_00.png");
-  o3.buscaCorpoRigido().defineAtivo(false);
-  o3.buscaCorpoRigido().defineGravidadeAtiva(false);
-
-  frameRate(10);
+  vidas = 3;
+  pontos = 0;
+  shootList = new ArrayList();
+  ship = criarObjeto(OBJETO_ANIMADO, 110, 75, 25, 70, 0);
+  ship.adicionaAnimacao("PLAYERSHIP", "playerShip", 1);
   defineEmDesenvolvimento(true);
-  //tocarAudioContinuo("shake.wav");
 }
 void draw()
 {
-  background(127, 199, 229);
+  background(10, 10, 10);
 
-  if (!keyPressed)
+  ship.rotacionarParaMouse();
+  ship.imprime("PLAYERSHIP");
+  ship.segueMouse(0.05);
+  
+  if(!shootList.isEmpty())
+  for(int i = shootList.size() - 1; i >= 0; i--)
   {
-    o1.imprime("IDLE");
-  } else
-  {
-    if (key == CODED)
+    ObjetoIlustrado o = shootList.get(i);
+    o.imprime();
+    o.buscaCoordenada().x += (o.buscaPosicionamento().x - o.buscaCoordenada().x+100) * 0.05;
+    o.buscaCoordenada().y += (o.buscaPosicionamento().y - o.buscaCoordenada().y+100) * 0.05;
+    if(o.buscaTempo() <= 0)
     {
-      if (keyCode == UP)
-      {
-        o1.decrementaY(15);
-      }
-      if (keyCode == DOWN)
-      {
-        o1.incrementaY(15);
-      }
-      if (keyCode == LEFT)
-      {
-        o1.decrementaX(15);
-        o1.imprime("ESQUERDA");
-      }
-      if (keyCode == RIGHT)
-      {
-        o1.incrementaX(15);
-        o1.imprime("DIREITA");
-      }
-      if (keyCode == SHIFT)
-      {
-        o1.incrementaZ(15);
-      }
-      if (keyCode == CONTROL)
-      {
-        o1.gira();
-      }
-      if (keyCode == ALT)
-      {
-        o2.buscaCorpoRigido().iniciarProjetil(45, 50);
-        o2.buscaCorpoRigido().defineColisao(false);
-      }
-    }
+       shootList.remove(i);
+    } 
   }
 
-  o1.imprime();
-  o2.imprime();
-  o3.imprime();
-
+/*
   if (estaColidindo(o1, o2))
   {
     text("Colidiu! ", 30, 200);
@@ -85,28 +42,17 @@ void draw()
   {
     text("Não colidiu! ", 30, 200);
   }  
-  
-  //Melhorar proximas linhas para facilidade do usuario
-  
-  if (o2.verificaChao())
-  {
-    o2.buscaCorpoRigido().defineColisao(true);
-  }
-  
-  if (estaColidindo(o2, o3))
-  {
-    o2.decrementaY((int)(o2.buscaCorpoRigido().buscaVelocidade().y*2));
-    o2.buscaCorpoRigido().defineColisao(true);
-    o2.buscaCorpoRigido().resolveColisao(o2, o3);
-  }
-
+  */
 }
 
-
-void keyReleased()
-{
-  if (key == ' ')
-  {
-    o1.decrementaZ(3);
-  }
+void keyPressed(){
+  if(key == ' '){
+    ObjetoIlustrado shoot = criarObjeto(OBJETO_ILUSTRADO, 13, 17, int(ship.buscaCoordenada().x), int(ship.buscaCoordenada().y), 0);
+    shoot.defineImagem("laser.png");
+    shoot.rotacionarParaMouse();
+    shoot.definePosicionamento(new PVector(mouseX,mouseY));
+    shoot.defineTempo(20);
+    shoot.rotacionarParaMouse();
+    shootList.add(shoot);
+  } 
 }
