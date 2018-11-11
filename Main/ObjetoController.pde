@@ -88,24 +88,6 @@ public void adicionarObjeto(Objeto objeto)
     return (T) objeto;
 }
 
-public void adicionarAudio(Audio audio)
-{
-    idAudio++;
-    audios.add(audio);
-}
-
-public Audio buscarAudioPorNome(String nome)
-{
-    for(Audio audio : audios)
-    {
-        if(audio.buscaNome().equals(nome))
-        {
-            return audio;
-        }
-    }
-    return null;
-}
-
 public void defineEmDesenvolvimento(boolean emDesenvolvimento)
 {
     for (Objeto ob1 : objetos)
