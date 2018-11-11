@@ -1,4 +1,4 @@
-final int SQUARE = 4;
+private final int SQUARE = 4;
 
 class Colisor
 {
