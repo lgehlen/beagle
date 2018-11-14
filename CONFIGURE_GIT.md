@@ -1,5 +1,5 @@
-# beagle
-beagle - Biblioteca Educacional para Aprendizado Gráfico de Lógica em Escolas; Trabalho de conclusão de curso para o curso de Tecnologia em Análise e Desenvolvimento de Sistemas pela Universidade Federal do Parana
+# BEAGLE
+BEAGLE - Biblioteca Educacional para Aprendizado Gráfico de Lógica em Escolas; Trabalho de conclusão de curso para o curso de Tecnologia em Análise e Desenvolvimento de Sistemas pela Universidade Federal do Parana
 
 Este repositório contém apenas arquivos de desenvolvimento. Clone os arquivos para trabalhar sob versionamento.
 
