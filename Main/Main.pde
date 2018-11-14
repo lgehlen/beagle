@@ -6,12 +6,14 @@ int pontos;
 
 void setup() 
 {
+  size(1020, 800);
   vidas = 3;
   pontos = 0;
   shootList = new ArrayList();
   ship = criarObjeto(OBJETO_ANIMADO, 110, 75, 25, 70, 0);
   adicionaAnimacao("PLAYERSHIP", "playerShip", 1, ship);
   defineEmDesenvolvimento(true);
+  tocarAudioContinuo("shake.wav");
 }
 void draw()
 {
@@ -54,5 +56,8 @@ void keyPressed(){
     shoot.defineTempo(20);
     rotacionarParaMouse(shoot);
     shootList.add(shoot);
+    tocarAudio("mario.wav");
+    pararAudio("shake.wav");
+    tocarAudioContinuo("shake.wav");
   } 
 }
