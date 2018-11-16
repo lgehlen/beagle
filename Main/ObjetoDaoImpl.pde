@@ -1,7 +1,7 @@
-public ArrayList<Objeto> listaObjetosBeagle = new ArrayList<Objeto>();
-
 class ObjetoDaoImpl implements ObjetoDao
 {
+	public ArrayList<Objeto> listaObjetosBeagle = new ArrayList<Objeto>();
+
 	private int id = 0;
 
 	private void adicionarObjeto(Objeto objeto)

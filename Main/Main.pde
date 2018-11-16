@@ -22,7 +22,7 @@ void draw()
   rotacionarParaMouse(ship);
   imprime("PLAYERSHIP", ship);
   segueMouse(0.05, ship);
-  
+  move(ship, INCREMENTA, LINHA, 10);
   if(!shootList.isEmpty())
   for(int i = shootList.size() - 1; i >= 0; i--)
   {
@@ -33,7 +33,7 @@ void draw()
     if(o.buscaTempo() <= 0)
     {
        shootList.remove(i);
-    } 
+    }   
   }
 
 /*
@@ -59,5 +59,9 @@ void keyPressed(){
     tocarAudio("mario.wav");
     pararAudio("shake.wav");
     tocarAudioContinuo("shake.wav");
-  } 
+  }
+  else if(key=='a')
+  {
+       move(ship, INCREMENTA, LINHA, 10);
+  }
 }

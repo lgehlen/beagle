@@ -77,24 +77,27 @@ class Colisor
       }
     }
     
-    public boolean verificaSeSeparado(Colisor s1, Colisor s2, boolean isSeparated) {
+    public boolean verificaSeSeparado(Colisor s1, Colisor s2) {
         for (int i = 0; i < s1.numSides; i++) {
           s1.defineMinMax(s1.pontosColisao[i]);
           s2.defineMinMax(s1.pontosColisao[i]);
-          isSeparated = s2.maxProj < s1.minProj || s1.maxProj < s2.minProj;
-          if (isSeparated) {
+
+          if (s2.maxProj < s1.minProj || s1.maxProj < s2.minProj) 
+          {
             return true;
           }
         }
         for (int i = 0; i < s2.numSides; i++) {
           s1.defineMinMax(s2.pontosColisao[i]);
           s2.defineMinMax(s2.pontosColisao[i]);
-          isSeparated = s2.maxProj < s1.minProj || s1.maxProj < s2.minProj;
-          if (isSeparated) {
+
+          if (s2.maxProj < s1.minProj || s1.maxProj < s2.minProj)
+          {
             return true;
           }
         }
-      return false;
+
+        return false;      
       }
     
     public void definePontos(PVector coordenada, PVector tamanho) {

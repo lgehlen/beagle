@@ -1,7 +1,7 @@
-public static ArrayList<Audio> listaAudiosBeagle;
-
 class AudioDaoImpl implements AudioDao
 {
+	private ArrayList<Audio> listaAudiosBeagle;
+
 	private int idAudio = 0;
 
 	public AudioDaoImpl()
