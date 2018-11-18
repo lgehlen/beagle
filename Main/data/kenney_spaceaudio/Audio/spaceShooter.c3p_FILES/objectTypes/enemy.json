@@ -1,0 +1,118 @@
+{
+	"name": "enemy",
+	"plugin-id": "Sprite",
+	"sid": 2002741011130554,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 103,
+						"height": 84,
+						"originX": 0.504854,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 3,
+						"collisionPoly": {
+							"points": [
+								0.165049,
+								0.202381,
+								0.495146,
+								0,
+								0.834951,
+								0.202381,
+								0.990291,
+								0.5,
+								0.893204,
+								0.869048,
+								0.495146,
+								0.892857,
+								0.0970874,
+								0.880952,
+								0.00970874,
+								0.5
+							]
+						},
+						"duration": 1
+					},
+					{
+						"width": 104,
+						"height": 84,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 4,
+						"collisionPoly": {
+							"points": [
+								0.211538,
+								0.261905,
+								0.5,
+								0.0119048,
+								0.788462,
+								0.261905,
+								0.951923,
+								0.5,
+								0.826923,
+								0.785714,
+								0.5,
+								0.797619,
+								0.173077,
+								0.785714,
+								0.0480769,
+								0.5
+							]
+						},
+						"duration": 1
+					},
+					{
+						"width": 93,
+						"height": 84,
+						"originX": 0.505376,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 5,
+						"collisionPoly": {
+							"points": [
+								0.107527,
+								0.119048,
+								0.494624,
+								0.22619,
+								0.892473,
+								0.119048,
+								0.935484,
+								0.5,
+								0.827957,
+								0.809524,
+								0.494624,
+								0.690476,
+								0.172043,
+								0.809524,
+								0.0645161,
+								0.5
+							]
+						},
+						"duration": 1
+					}
+				],
+				"sid": 2504188229416367,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

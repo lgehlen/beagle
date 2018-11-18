@@ -58,8 +58,6 @@ class Objeto
 
     public void imprime()
     {
-        this.tempo -= 1;
-        println(tempo);
         hint(ENABLE_DEPTH_SORT);
         pushMatrix();
             defineImpressao();
