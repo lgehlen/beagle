@@ -60,6 +60,11 @@ public void gira(Objeto objeto)
 	objetoService.gira(objeto);
 }
 
+public void adicionaImagem(String prefixoImgem, ObjetoIlustrado objeto)
+{
+	objetoService.adicionaImagem(prefixoImgem, objeto);
+}
+
 public void adicionaAnimacao(String idAnimacao, String prefixoImgem, int quantidadeSprites, ObjetoAnimado objeto)
 {
 	objetoService.adicionaAnimacao(idAnimacao, prefixoImgem, quantidadeSprites, objeto);

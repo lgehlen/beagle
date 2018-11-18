@@ -31,7 +31,6 @@ class ObjetoServiceImpl implements ObjetoService
 		return buscaObjetoDao().criarObjeto(classe, alturaObjeto, larguraObjeto, coordenadaX, coordenadaY, coordenadaZ);
 	}
 
-
 	public boolean estaColidindo(Objeto objeto1, Objeto objeto2)
 	{
 		return !objeto1.caixaDeColisao.verificaSeSeparado(objeto1.caixaDeColisao,objeto2.caixaDeColisao);
@@ -72,6 +71,11 @@ class ObjetoServiceImpl implements ObjetoService
 		objeto.gira();
 	}
 
+	public void adicionaImagem(String prefixoImgem, ObjetoIlustrado objeto)
+	{
+		objeto.defineImagem(prefixoImgem);
+	}
+
 	public void adicionaAnimacao(String idAnimacao, String prefixoImgem, int quantidadeSprites, ObjetoAnimado objeto)
 	{
 		objeto.adicionaAnimacao(idAnimacao, prefixoImgem, quantidadeSprites);
@@ -106,13 +110,13 @@ class ObjetoServiceImpl implements ObjetoService
 	{
 		if(sinal == INCREMENTA)
 		{
-			if(vetor == LINHA)
-			{
-				objeto.incrementaY(valor);
-			}
-			else if (vetor == COLUNA) 
+			if(vetor == COLUNA)
 			{
 				objeto.incrementaX(valor);
+			}
+			else if (vetor == LINHA) 
+			{
+				objeto.incrementaY(valor);
 			}
 			else
 			{
@@ -121,13 +125,13 @@ class ObjetoServiceImpl implements ObjetoService
 		}
 		else 
 		{
-			if(vetor == LINHA)
-			{
-				objeto.decrementaY(valor);
-			}
-			else if (vetor == COLUNA) 
+			if(vetor == COLUNA)
 			{
 				objeto.decrementaX(valor);
+			}
+			else if (vetor == LINHA) 
+			{
+				objeto.decrementaY(valor);
 			}
 			else
 			{

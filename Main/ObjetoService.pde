@@ -24,6 +24,8 @@ interface ObjetoService
 
 	public void gira(Objeto objeto);
 
+	public void adicionaImagem(String prefixoImgem, ObjetoIlustrado objeto);
+
 	public void adicionaAnimacao(String idAnimacao, String prefixoImgem, int quantidadeSprites, ObjetoAnimado objeto);
 
 	public void adicionaAnimacao(String idAnimacao, String prefixoImgem, int quantidadeSprites, String extensao, ObjetoAnimado objeto);

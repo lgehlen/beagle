@@ -1,0 +1,182 @@
+{
+	"name": "Game sheet",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "every-tick",
+					"objectClass": "System",
+					"sid": 278287756909968
+				}
+			],
+			"actions": [
+				{
+					"id": "set-x",
+					"objectClass": "player",
+					"sid": 4599947878207566,
+					"parameters": {
+						"x": "mouse.X"
+					}
+				},
+				{
+					"id": "set-y",
+					"objectClass": "blueLaser",
+					"sid": 6631227270376571,
+					"parameters": {
+						"y": "self.Y - 10"
+					}
+				},
+				{
+					"id": "set-y",
+					"objectClass": "enemy",
+					"sid": 6874076469485455,
+					"parameters": {
+						"y": "self.Y + 3"
+					}
+				}
+			],
+			"sid": 8932442662397253
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-click",
+					"objectClass": "mouse",
+					"sid": 6731732857252471,
+					"parameters": {
+						"mouse-button": "left",
+						"click-type": "clicked"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 4758169494873808,
+					"parameters": {
+						"object-to-create": "blueLaser",
+						"layer": "0",
+						"x": "player.X - 35",
+						"y": "player.Y"
+					}
+				},
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 4352980991669027,
+					"parameters": {
+						"object-to-create": "blueLaser",
+						"layer": "0",
+						"x": "player.X + 35",
+						"y": "player.Y"
+					}
+				}
+			],
+			"sid": 4651468204173273
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "is-outside-layout",
+					"objectClass": "blueLaser",
+					"sid": 3927125651240544
+				}
+			],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "blueLaser",
+					"sid": 1481173044135463
+				}
+			],
+			"sid": 3566158108804946
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "every-x-seconds",
+					"objectClass": "System",
+					"sid": 5309898354765677,
+					"parameters": {
+						"interval-seconds": "2"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 7376397998896051,
+					"parameters": {
+						"object-to-create": "enemy",
+						"layer": "0",
+						"x": "random(WindowWidth)",
+						"y": "-50"
+					}
+				},
+				{
+					"id": "set-animation-frame",
+					"objectClass": "enemy",
+					"sid": 8233034273849462,
+					"parameters": {
+						"frame-number": "random(3)"
+					}
+				}
+			],
+			"sid": 4673757839990695
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-collision-with-another-object",
+					"objectClass": "blueLaser",
+					"sid": 1076022412335679,
+					"parameters": {
+						"object": "enemy"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "enemy",
+					"sid": 8097034665804579
+				},
+				{
+					"id": "destroy",
+					"objectClass": "blueLaser",
+					"sid": 4192836385514523
+				}
+			],
+			"sid": 6076626482402486
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-collision-with-another-object",
+					"objectClass": "player",
+					"sid": 3946656100450184,
+					"parameters": {
+						"object": "enemy"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "restart-layout",
+					"objectClass": "System",
+					"sid": 4533854430759825
+				}
+			],
+			"sid": 8651116067702201
+		}
+	],
+	"sid": 764238328653143
+}

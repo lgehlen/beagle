@@ -1,0 +1,170 @@
+{
+	"projectFormatVersion": 1,
+	"savedWithRelease": 11100,
+	"name": "Space Shooter",
+	"runtime": "c2",
+	"useWorker": false,
+	"bundleAddons": false,
+	"usedAddons": [
+		{
+			"type": "plugin",
+			"id": "Mouse",
+			"name": "Mouse",
+			"author": "Scirra",
+			"version": "r111",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
+			"author": "Scirra",
+			"version": "r111",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TiledBg",
+			"name": "Tiled Background",
+			"author": "Scirra",
+			"version": "r111",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "bound",
+			"name": "Bound to layout",
+			"author": "Scirra",
+			"version": "r111",
+			"bundled": false
+		}
+	],
+	"uniqueId": "2g1avfqon9c4s",
+	"objectTypes": {
+		"items": [
+			"mouse",
+			"player",
+			"space",
+			"blueLaser",
+			"enemy"
+		],
+		"subfolders": []
+	},
+	"autosaveData": null,
+	"containers": [],
+	"families": {
+		"items": [],
+		"subfolders": []
+	},
+	"layouts": {
+		"items": [
+			"Game"
+		],
+		"subfolders": []
+	},
+	"eventSheets": {
+		"items": [
+			"Game sheet"
+		],
+		"subfolders": []
+	},
+	"rootFileFolders": {
+		"sound": {
+			"items": [],
+			"subfolders": []
+		},
+		"music": {
+			"items": [],
+			"subfolders": []
+		},
+		"video": {
+			"items": [],
+			"subfolders": []
+		},
+		"font": {
+			"items": [],
+			"subfolders": []
+		},
+		"icon": {
+			"items": [
+				{
+					"name": "icon-16.png",
+					"type": "image/png"
+				},
+				{
+					"name": "icon-32.png",
+					"type": "image/png"
+				},
+				{
+					"name": "icon-114.png",
+					"type": "image/png"
+				},
+				{
+					"name": "icon-128.png",
+					"type": "image/png"
+				},
+				{
+					"name": "icon-256.png",
+					"type": "image/png"
+				},
+				{
+					"name": "loading-logo.png",
+					"type": "image/png"
+				}
+			],
+			"subfolders": []
+		},
+		"general": {
+			"items": [],
+			"subfolders": []
+		}
+	},
+	"timelines": {
+		"items": [],
+		"subfolders": []
+	},
+	"properties": {
+		"description": "Donation pack source",
+		"version": "1.0",
+		"author": "Kenney.nl",
+		"authorEmail": "mail@kenney.nl",
+		"authorWebsite": "http://www.kenney.nl",
+		"appId": "com.kenney.spaceshooter",
+		"pixelRounding": false,
+		"useLoaderLayout": false,
+		"fullscreenMode": "off",
+		"fullscreenQuality": "high",
+		"viewportFit": "auto",
+		"backgroundColor": [
+			0,
+			0,
+			0,
+			0
+		],
+		"splashColor": [
+			1,
+			1,
+			1,
+			0
+		],
+		"useThemeColor": false,
+		"themeColor": [
+			1,
+			1,
+			1,
+			0
+		],
+		"useHighDpi": true,
+		"orientations": "any",
+		"enableWebGL": true,
+		"sampling": "linear",
+		"downscaling": "medium",
+		"loaderStyle": "splash",
+		"preloadSounds": true,
+		"clearBackground": true,
+		"enhancedAccelerationPrecision": true
+	},
+	"viewportWidth": 800,
+	"viewportHeight": 480,
+	"firstLayout": null
+}
