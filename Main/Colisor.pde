@@ -103,7 +103,7 @@ class Colisor
     public void definePontos(PVector coordenada, PVector tamanho) {
       for (int i = 0; i < x.length; i++) {
         float currentAngle = i * TWO_PI / numSides;
-        x[i] = coordenada.x+tamanho.x/2*cos(currentAngle + PI/numSides + angle);
+        x[i] = coordenada.x+tamanho.x/1.5*cos(currentAngle + PI/numSides + angle);
         y[i] = coordenada.y+tamanho.y/1.5*sin(currentAngle + PI/numSides + angle);
       }
     

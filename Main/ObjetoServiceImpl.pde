@@ -140,5 +140,15 @@ class ObjetoServiceImpl implements ObjetoService
 		}
 	}
 
+	public void removerObjeto(Objeto objeto)
+	{
+		if(objeto != null)
+		{
+            objeto.defineEmDesenvolvimento(false);
+			objetoDao.removerObjeto(objeto.buscaId());
+            objeto = null;
+            System.gc();
+		}
+	}
 
 }

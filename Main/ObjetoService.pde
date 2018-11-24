@@ -36,4 +36,6 @@ interface ObjetoService
 
 	public void move(Objeto objeto, int sinal, int vetor, int valor);
 
+	public void removerObjeto(Objeto objeto);
+
 } 
