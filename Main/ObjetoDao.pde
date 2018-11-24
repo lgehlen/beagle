@@ -8,4 +8,6 @@ interface ObjetoDao
 
 	public ArrayList<Objeto> buscaListaObjetosBeagle();
 
+	public void removerObjeto(int id);
+
 }

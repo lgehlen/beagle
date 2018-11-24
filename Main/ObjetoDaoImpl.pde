@@ -84,6 +84,21 @@ class ObjetoDaoImpl implements ObjetoDao
 		return (T) objeto;
 	}
 
+	public void removerObjeto(int id)
+	{
+        int count = 0;
+        
+        for(Objeto o : listaObjetosBeagle)
+		{
+            if(o.buscaId() == id)
+            {
+			    buscaListaObjetosBeagle().remove(count);
+                break;
+            }
+            count++;
+		}
+	}
+
 	public ArrayList<Objeto> buscaListaObjetosBeagle()
 	{
 		return listaObjetosBeagle;

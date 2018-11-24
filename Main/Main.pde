@@ -42,7 +42,7 @@ void setup()
     iniciado = false;
     finalizado = false;
 
-    ship = criarObjeto(OBJETO_ANIMADO, 110, 75, width/2, height/2, 0);
+    ship = criarObjeto(OBJETO_ANIMADO, 75, 112, width/2, height/2, 0);
 
     adicionaAnimacao("PLAYERSHIP", "playerShip", 1, ship);
     tocarAudioContinuo("Sci-fi Pulse Loop.wav");
@@ -57,6 +57,8 @@ void draw()
 {
     clear();
     imprime(fundo);
+    
+    defineEmDesenvolvimento(true);
 
     if(!finalizado)
     {
@@ -110,14 +112,19 @@ void jogo()
 
             for (int j = 0; j < asteroides.size(); j++)
             {
-                if (estaColidindo(o, asteroides.get(j)))
+                ObjetoIlustrado asteroide = asteroides.get(j);
+                
+                if (estaColidindo(o, asteroide))
                 {
                     tocarAudio("laser9.mp3");
 
                     shootList.remove(i);
+                    removerObjeto(o);
 
-                    explode(asteroides.get(j), true);
-                    asteroides.remove(j);
+                    explode(asteroide, true);
+                    
+                    removerObjeto(asteroide);
+                    asteroides.remove(asteroide);                    
                     
                     pontos += 500;
                 }
@@ -126,10 +133,6 @@ void jogo()
             o.buscaCoordenada().x += (o.buscaPosicionamento().x - o.buscaCoordenada().x+100) * 0.05;
             o.buscaCoordenada().y += (o.buscaPosicionamento().y - o.buscaCoordenada().y+100) * 0.05;
 
-            if (o.buscaTempo() <= 0)
-            {
-                shootList.remove(i);
-            }
         }
     }
 
@@ -139,6 +142,7 @@ void jogo()
 
         if (asteroide.buscaY() > 800)
         {
+            removerObjeto(asteroides.get(i));
             asteroides.remove(i);
         } else
         {
@@ -151,6 +155,7 @@ void jogo()
 
                 explode(asteroide, false);
 
+                removerObjeto(asteroide);
                 asteroides.remove(i);
                 
                 vidas -= 1;
@@ -166,7 +171,7 @@ void jogo()
 
             if (tipo == 1)
             {
-                asteroide = criarObjeto(OBJETO_ILUSTRADO, 98, 98, (98*i)+98, 0, 0);
+                asteroide = criarObjeto(OBJETO_ILUSTRADO, 98, 96, (98*i)+98, 0, 0);
                 adicionaImagem("meteorBrown_big00.png", asteroide);
             } else if (tipo == 2) 
             {
@@ -182,6 +187,8 @@ void jogo()
     }
 
     imprimirExplosoes();
+        
+    
 }
 
 void explode(Objeto o, boolean positivo)
@@ -212,6 +219,7 @@ void explodirPositivoThread()
         delay(150);
     }
     explosao.defineZ(-2);
+    removerObjeto(explosao);
     explosoes.remove(explosao);
 }
 
@@ -227,6 +235,7 @@ void explodirNegativoThread()
         delay(150);
     }
     explosao.defineZ(-2);
+    removerObjeto(explosao);
     explosoes.remove(explosao);
 }
 
@@ -293,7 +302,7 @@ void keyPressed() {
         shoot.defineImagem("laser.png");
         rotacionarParaMouse(shoot);
 
-        shoot.definePosicionamento(new PVector(mouseX, mouseY));
+        shoot.definePosicionamento(new PVector(mouseX-100, mouseY-100));
         shoot.defineTempo(5);
 
         segueMouse(1, shoot);
@@ -305,7 +314,6 @@ void keyPressed() {
 
     if (key == ENTER | key == RETURN)
     {
-        print("FOI");
         iniciado = true;
     }
 }

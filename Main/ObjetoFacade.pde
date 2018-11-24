@@ -89,3 +89,8 @@ public void move(Objeto objeto, int sinal, int vetor, int valor)
 {
 	objetoService.move(objeto, sinal, vetor, valor);
 }
+
+public void removerObjeto(Objeto objeto)
+{
+	objetoService.removerObjeto(objeto);
+}
